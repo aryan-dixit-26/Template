@@ -1,0 +1,35 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box ̰;
+}
+
+.header-bg{
+    background-color: black;
+    width: 100vw;
+    height: 25vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: whitesmoke;
+    padding: 35px 35px 0px 35px;
+    text-align: left;
+    font-size: 2rem;
+}
+
+.tabs{
+    width: 100vw;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+.tab{
+    padding: 0px 20px;
+    border: 1px solid white;
+}
+
+.tab:hover{
+    cursor: pointer;
+}
