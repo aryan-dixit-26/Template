@@ -1,5 +1,7 @@
 import React from "react";
 import Header from "../components/Header";
+import Mail from "../components/Mail";
+import Markup from "../components/Markup";
 
 const Home = () => {
   const [tab, setTab] = React.useState(0);
@@ -8,7 +10,17 @@ const Home = () => {
   };
   return (
     <div>
-      <Header tab={tab} handleTabChange={handleTabChange}/>
+      <Header tab={tab} handleTabChange={handleTabChange} />
+      {tab === 0 ? (
+        <>
+          {" "}
+          <Mail />
+        </>
+      ) : (
+        <>
+          <Markup />
+        </>
+      )}
     </div>
   );
 };
