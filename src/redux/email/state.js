@@ -1,5 +1,6 @@
 const emailInitialState = {
-    data: []
+    data: [],
+    isOpen: false
 }
 export {
     emailInitialState
