@@ -1,17 +1,18 @@
 import React from "react";
+import { connect } from "react-redux";
 import Header from "../components/Header";
 import Mail from "../components/Mail";
 import Markup from "../components/Markup";
+import { changeTab } from "../redux/email/actions";
 
-const Home = () => {
-  const [tab, setTab] = React.useState(0);
+const Home = (props) => {
   const handleTabChange = (val) => {
-    setTab(val);
+    props.changeTab(val)
   };
   return (
     <div>
-      <Header tab={tab} handleTabChange={handleTabChange} />
-      {tab === 0 ? (
+      <Header tab={props.tab} handleTabChange={handleTabChange} />
+      {props.tab === 0 ? (
         <>
           {" "}
           <Mail />
@@ -25,4 +26,16 @@ const Home = () => {
   );
 };
 
-export default Home;
+const mapStateToProps = state =>{
+  return {
+    tab: state.emailReducer.tab
+  }
+}
+
+const mapDispatchToProps = dispatch =>{
+  return {
+    changeTab: (val)=>dispatch(changeTab(val))
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Home);
