@@ -3,6 +3,7 @@ import FeatBar from './FeatBar'
 import DataTable from './DataTable'
 import InputForm from './InputForm'
 import '../styles/Markup.css'
+import Editor from "./Editor";
 
 const Markup = () => {
   return (
@@ -10,6 +11,7 @@ const Markup = () => {
       {" "}
       <FeatBar />
       <InputForm />
+      <Editor />
       <DataTable /> 
     </div>
   );

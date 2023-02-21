@@ -43,4 +43,25 @@ const emptySearchMarkup = ()=> {
     }
 }
 
-export { addMarkup, editMarkup, deleteMarkup, updateValueMarkup, performSearchMarkup, emptySearchMarkup }
+const openEditorMarkup = (id) => {
+    return {
+        type: "OPEN_EDITOR",
+        payload: {
+            id
+        }
+    };
+};
+
+const closeEditorMarkup = ()=> {
+    return {
+        type: "CLOSE_EDITOR"
+    }
+}
+
+const updateMarkupData = () => {
+    return {
+        type: "UPDATE_MARKUP_FORM"
+    }
+}
+
+export { addMarkup, editMarkup, deleteMarkup, updateValueMarkup, performSearchMarkup, emptySearchMarkup, openEditorMarkup, closeEditorMarkup, updateMarkupData }

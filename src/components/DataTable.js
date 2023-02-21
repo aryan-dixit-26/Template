@@ -7,7 +7,7 @@ import { editEmail } from "../redux/email/actions";
 import { deleteEmail } from "../redux/email/actions";
 import { openEditor } from "../redux/email/actions";
 import "../styles/DataTable.css";
-import { deleteMarkup } from "../redux/markup/actions";
+import { deleteMarkup, openEditorMarkup } from "../redux/markup/actions";
 const DataTable = (props) => {
   const data =  props.tab === 0 ? !props.search ? props.emails : props.searchResult : !props.searchMarkup ? props.markup : props.searchResultMarkup
   return (
@@ -27,7 +27,9 @@ const DataTable = (props) => {
               <td>{ele.desc}</td>
               <td>
                 <div className="actions">
-                  <div className="action" onClick={()=>props.openEditor(ele.id)}>
+                  <div className="action" onClick={()=>{
+                    props.tab === 0 ? props.openEditor(ele.id) : props.openEditorMarkup(ele.id)}
+                    }>
                     <span>EDIT</span>
                     <IoPencil />
                   </div>
@@ -52,7 +54,7 @@ const mapStateToProps = (state) => {
     searchResult: state.emailReducer.searchResult,
     search: state.emailReducer.search,
     searchMarkup: state.markupReducer.search,
-    searchResultMarkup: state.markupReducer.searchResult
+    searchResultMarkup: state.markupReducer.searchResult,
   };
 };
 
@@ -62,7 +64,8 @@ const mapDispatchToProps = (dispatch) => {
     editEmail: (id,data) => dispatch(editEmail(id, data)),
     deleteEmail: (id)=>dispatch(deleteEmail(id)),
     openEditor: (id)=>dispatch(openEditor(id)),
-    deleteMarkup: (id)=>dispatch(deleteMarkup(id))
+    deleteMarkup: (id)=>dispatch(deleteMarkup(id)),
+    openEditorMarkup: (id)=>dispatch(openEditorMarkup(id))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(DataTable);

@@ -1,7 +1,10 @@
 const markupInitialState = {
     data: [],
     search: "",
-    searchResult: []
+    isOpen: false,
+    isEdit: false,
+    searchResult: [],
+    formData: {name: "", desc: "", body: "", id:""}
 }
 export {
     markupInitialState

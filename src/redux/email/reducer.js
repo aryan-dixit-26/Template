@@ -2,6 +2,7 @@ import { emailInitialState } from "./state";
 import {
   ADD_EMAIL,
   CHANGE_TAB,
+  CLOSE_EDITOR,
   CLOSE_MODAL,
   DELETE_EMAIL,
   EDIT_EMAIL,
@@ -9,6 +10,7 @@ import {
   OPEN_EDITOR,
   OPEN_MODAL,
   PERFORM_SEARCH,
+  UPDATE_FORMDATA,
   UPDATE_VALUE,
 } from "./types";
 
@@ -45,12 +47,12 @@ const deleteEmailData = (state, action) => {
     });
   return newData;
 };
-const editValuesData = (state, action) => {
-  let value = state.data.find((ele) => ele.id === action.payload.id);
+const setFormData = (state, action) => {
+  let value = state.data.find(ele=>ele.id === action.payload.id)
   return {
-    ...state.formData,
     ...value,
-  };
+    id: action.payload.id
+  }
 };
 const performSearch = (state, action) => {
   let data = state.data.filter(ele=>ele.name === state.search)
@@ -87,9 +89,8 @@ const emailReducer = (state = emailInitialState, action) => {
     case OPEN_EDITOR:
       return {
         ...state,
-        isOpen: true,
         isEdit: true,
-        formData: editValuesData(state, action),
+        formData: setFormData(state,action)
       };
     case CHANGE_TAB:
       return {
@@ -110,6 +111,17 @@ const emailReducer = (state = emailInitialState, action) => {
       return {
         ...state,
         searchResult: []
+      }
+    case UPDATE_FORMDATA:
+      return {
+        ...state,
+        formData: setFormData(state,action)
+      }
+    case CLOSE_EDITOR:
+      return {
+        ...state,
+        isEdit: false,
+        formData: {}
       }
     default:
       return state;

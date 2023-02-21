@@ -63,5 +63,15 @@ const emptySearch = (val) => {
     type: "EMPTY_SEARCH"
   }
 }
+const updateFormData = ()=>{
+  return {
+    type: "UPDATE_FORMDATA",
+  }
+}
+const closeEditor = () =>{
+  return {
+    type: "CLOSE_EDITOR",
+  }
+}
 
-export { addEmail, editEmail, deleteEmail, openModal, closeModal, openEditor, changeTab, updateValue, performSearch, emptySearch };
+export { addEmail, editEmail, deleteEmail, openModal, closeModal, openEditor, changeTab, updateValue, performSearch, emptySearch, updateFormData, closeEditor };
