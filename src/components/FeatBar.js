@@ -1,29 +1,29 @@
 import React from "react";
 import "../styles/FeatBar.css";
 import { IoAddOutline, IoSearchOutline } from "react-icons/io5";
-import { emptySearch, openModal, performSearch, updateValue } from "../redux/email/actions";
-import {  emptySearchMarkup, performSearchMarkup, updateValueMarkup } from "../redux/markup/actions";
 import { connect } from "react-redux";
+import { clearSearch, searcher, updateSearchValue } from "../ducks/search";
+import { openModal } from "../ducks/general"
 
 const FeatBar = (props) => {
   return (
     <div className="featBar">
-      <div className="add" onClick={props.openModal}>
+      <div className="add" onClick={()=>props.openModal()}>
         <IoAddOutline />
         ADD {" "}{props.tab ? "HTML": "EMAIL"}
       </div>
       <div className="search">
         <IoSearchOutline />
-        <input placeholder="SEARCH" value={props.tab === 0? props.search : props.searchMarkup} onKeyDown={(e)=>{
+        <input placeholder="SEARCH" value={props.search} onKeyDown={(e)=>{
           if(e.key === "Enter"){
-            props.tab === 0? props.performSearch() :  props.performSearchMarkup()
+            props.tab === 0? props.performSearch(props.email) :  props.performSearch(props.markup)
           }
           if(e.key === "Backspace"){
-            props.tab === 0? props.emptySearch() : props.emptySearchMarkup()
+            props.tab === 0? props.clearSearch() : props.clearSearch()
           }
         }} onChange={(e)=>{
           props.tab === 0 ?
-          props.updateValue(e.target.value) : props.updateValueMarkup(e.target.value)
+          props.updateValue(e.target.value) : props.updateValue(e.target.value)
         }}/>
       </div>
     </div>
@@ -32,21 +32,19 @@ const FeatBar = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    tab: state.emailReducer.tab,
-    search: state.emailReducer.search,
-    searchMarkup: state.markupReducer.search
+    tab: state.generalReducer.tab,
+    search: state.searchReducer.search,
+    email: state.emailReducer2.emailData,
+    markup: state.markupReducer2.markupData,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     openModal: ()=>dispatch(openModal()),
-    performSearch: ()=>dispatch(performSearch()),
-    updateValue: (val)=>dispatch(updateValue(val)),
-    emptySearch: ()=>dispatch(emptySearch()),
-    performSearchMarkup: ()=>dispatch(performSearchMarkup()),
-    emptySearchMarkup: ()=>dispatch(emptySearchMarkup()),
-    updateValueMarkup: ()=>dispatch(updateValueMarkup())
+    performSearch: (data)=>dispatch(searcher(data)),
+    updateValue: (val)=>dispatch(updateSearchValue(val)),
+    clearSearch: ()=>dispatch(clearSearch()),
   };
 };
 export default connect(mapStateToProps,mapDispatchToProps)(FeatBar);

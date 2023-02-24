@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Header from "../components/Header";
 import Mail from "../components/Mail";
 import Markup from "../components/Markup";
-import { changeTab } from "../redux/email/actions";
+import { changeTab } from "../ducks/general";
 
 const Home = (props) => {
   const handleTabChange = (val) => {
@@ -28,7 +28,7 @@ const Home = (props) => {
 
 const mapStateToProps = state =>{
   return {
-    tab: state.emailReducer.tab
+    tab: state.generalReducer.tab
   }
 }
 

@@ -12,7 +12,7 @@ const Markup = () => {
       <FeatBar />
       <InputForm />
       <Editor />
-      <DataTable /> 
+      <DataTable />
     </div>
   );
 };

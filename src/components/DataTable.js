@@ -2,14 +2,13 @@ import React from "react";
 import { IoPencil } from "react-icons/io5";
 import { ImBin } from "react-icons/im";
 import { connect } from "react-redux";
-import { addEmail } from "../redux/email/actions";
-import { editEmail } from "../redux/email/actions";
-import { deleteEmail } from "../redux/email/actions";
-import { openEditor } from "../redux/email/actions";
 import "../styles/DataTable.css";
-import { deleteMarkup, openEditorMarkup } from "../redux/markup/actions";
+import { deleteEmail } from "../ducks/email";
+import { deleteMarkup } from "../ducks/markup";
+import { editorOpener } from "../ducks/general";
+import { formUpdater, updateIdValue } from "../ducks/InputForm";
 const DataTable = (props) => {
-  const data =  props.tab === 0 ? !props.search ? props.emails : props.searchResult : !props.searchMarkup ? props.markup : props.searchResultMarkup
+  const data =  props.tab === 0 ? !props.search ? props.emails : props.searchResult : !props.search ? props.markup : props.searchResult
   return (
     <div className="table">
       <table>
@@ -28,7 +27,7 @@ const DataTable = (props) => {
               <td>
                 <div className="actions">
                   <div className="action" onClick={()=>{
-                    props.tab === 0 ? props.openEditor(ele.id) : props.openEditorMarkup(ele.id)}
+                    props.openEditor(ele.id,updateIdValue, formUpdater,props.tab === 0 ?  props.emails : props.markup)}
                     }>
                     <span>EDIT</span>
                     <IoPencil />
@@ -48,24 +47,20 @@ const DataTable = (props) => {
 };
 const mapStateToProps = (state) => {
   return {
-    emails: state.emailReducer.data,
-    tab: state.emailReducer.tab,
-    markup: state.markupReducer.data,
-    searchResult: state.emailReducer.searchResult,
-    search: state.emailReducer.search,
-    searchMarkup: state.markupReducer.search,
-    searchResultMarkup: state.markupReducer.searchResult,
+    emails: state.emailReducer2.emailData,
+    tab: state.generalReducer.tab,
+    markup: state.markupReducer2.markupData,
+    search: state.searchReducer.search,
+    searchResult: state.searchReducer.searchResult,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addEmail: (data) => dispatch(addEmail(data)),
-    editEmail: (id,data) => dispatch(editEmail(id, data)),
     deleteEmail: (id)=>dispatch(deleteEmail(id)),
-    openEditor: (id)=>dispatch(openEditor(id)),
+    openEditor: (id,setFormDataId,formUpdater,data)=>dispatch(editorOpener(id,setFormDataId,formUpdater,data)),
     deleteMarkup: (id)=>dispatch(deleteMarkup(id)),
-    openEditorMarkup: (id)=>dispatch(openEditorMarkup(id))
-  };
+    formUpdater: (id,data)=>dispatch(formUpdater(id,data))
+  };  
 };
 export default connect(mapStateToProps, mapDispatchToProps)(DataTable);
